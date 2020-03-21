@@ -1,11 +1,17 @@
 {% extends "main/base.html" %}
 {%block content%}
 <div class="container">
+    {% for post in posts %}
     <div class="card m-3 p-3">
         <div class="card-body">
-            <p>Hello World</p>
+            <p>{{post.masterpost.username}}</p>
+            <p><a href="#">{{post.title}}</a></p>
+            <img src="{{post.image.url}}" class="img-fluid" />
+            <p>{{post.message}}</p>
+            <p>{{post.post_date}}</p>
         </div>
     </div>
+    {% endfor %}
 </div>
 
 {%endblock%}

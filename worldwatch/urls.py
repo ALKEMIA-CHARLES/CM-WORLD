@@ -1,9 +1,9 @@
 from django.conf.urls import url
 from . import views
-from .views import index
+from .views import PostListView
 
 
 
 urlpatterns = [
-      url(r'^$', views.index, name='index'),
+      url(r'^$', PostListView.as_view(), name='index'),
 ]

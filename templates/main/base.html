@@ -1,13 +1,44 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {%block styles%}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% endblock %}
+    <title>CM-WORLD</title>
 </head>
 
 <body>
+
+    <nav class="navbar navbar" style="background-color: black; color: white;">
+        <div class="container">
+            <form action="#" method="GET" class="form-inline">
+                <input name='search' class="form-control mr-sm-2" type="search" placeholder="Search"
+                    aria-label="Search">
+                <button class="btn btn-secondary" type="submit" style="color: white;">Search Businesses</button>
+            </form>
+            <div>
+                <a href="{% url 'index' %}" style="color: white;"> What's Happening</a>
+            </div>
+            <div>
+                {% if request.user.is_authenticated %}
+                <div>
+                    <a href="{% url 'profile'%}" style="color: white;">Profile</a>
+                </div>
+                <div>
+                    <a href="{% url 'logout' %}" style="color: white;">Logout</a>
+                </div>
+                {% else %}
+                <a href="{% url 'login' %}" style="color: white;">Login</a>
+                <a href="{% url 'register' %}" style="color: white;">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
     {%block content%}
     {%endblock%}
 
