@@ -29,6 +29,10 @@ class PostListView(ListView):
     context_object_name = "posts"
     ordering =['-post_date']
 
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "main/detail.html"
+
 class PostCreateView(CreateView):
     model = Post
     template_name = "main/postform.html"
@@ -38,8 +42,34 @@ class PostCreateView(CreateView):
         form.instance.masterpost = self.request.user
         return super().form_valid(form)
 
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = "main/updateform.html"
+    fields = ['image','title','message']
 
 
+    def form_valid(self, form):
+        form.instance.masterpost = self.request.user
+        return super().form_valid(form)
+    
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.masterpost:
+            return True
+        return False
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    template_name = 'main/post_confirm_delete.html'
+    success_url = '/'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.masterpost:
+            return True
+        return False
+
+    
 @login_required
 def profile(request):
     if request.method == "POST":
