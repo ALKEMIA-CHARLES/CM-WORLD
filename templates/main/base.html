@@ -25,12 +25,12 @@
                 <a href="{% url 'index' %}" style="color: white;"> What's Happening</a>
             </div>
             <div>
+                <a href="{% url 'post-create' %}" style="color: white;">Alert the neighbours about something</a>
+            </div>
+            <div>
                 {% if request.user.is_authenticated %}
                 <div>
                     <a href="{% url 'profile' %}" style="color: white;">Profile</a>
-                </div>
-                <div>
-                    <a href="{% url 'post-create' %}" style="color: white;">Alert the neighbours about something</a>
                 </div>
                 <div>
                     <a href="{% url 'logout' %}" style="color: white;">Logout</a>

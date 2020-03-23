@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from worldwatch.forms import UserUpdateForm
 # Create your views here.
 
 
@@ -36,6 +37,8 @@ class PostCreateView(CreateView):
     def form_valid(self, form):
         form.instance.masterpost = self.request.user
         return super().form_valid(form)
+
+
 
 @login_required
 def profile(request):
