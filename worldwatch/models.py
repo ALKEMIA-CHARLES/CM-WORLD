@@ -31,3 +31,7 @@ class Post(models.Model):
     message = models.TextField(max_length=200)
     post_date = models.DateTimeField(auto_now_add=True)
     masterpost = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+        
+    def get_absolute_url(self):
+        return reverse('index')

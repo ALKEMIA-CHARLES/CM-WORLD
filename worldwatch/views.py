@@ -28,6 +28,15 @@ class PostListView(ListView):
     context_object_name = "posts"
     ordering =['-post_date']
 
+class PostCreateView(CreateView):
+    model = Post
+    template_name = "main/postform.html"
+    fields = ['title', 'message', 'image']
+
+    def form_valid(self, form):
+        form.instance.masterpost = self.request.user
+        return super().form_valid(form)
+
 @login_required
 def profile(request):
     if request.method == "POST":
