@@ -10,4 +10,5 @@ urlpatterns = [
       url(r'^cmworld/(?P<pk>\d+)/$', PostDetailView.as_view(), name='post-detail'),
       url(r'^cmworld/(?P<pk>\d+)/update/$', PostUpdateView.as_view(), name='post-update'),
       url(r'^cmworld/(?P<pk>\d+)/delete/$', PostDeleteView.as_view(), name='post-delete'),
+      url(r'^post-comments/(\d+)/$', views.post_comments, name='post-comment')
 ]

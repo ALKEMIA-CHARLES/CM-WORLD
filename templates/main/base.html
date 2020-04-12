@@ -8,6 +8,7 @@
     {%block styles%}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/styles.css">
     {% endblock %}
     <title>CM-WORLD</title>
 </head>
@@ -16,17 +17,6 @@
 
     <nav class="navbar navbar" style="background-color: black; color: white;">
         <div class="container">
-            <form action="#" method="GET" class="form-inline">
-                <input name='search' class="form-control mr-sm-2" type="search" placeholder="Search"
-                    aria-label="Search">
-                <button class="btn btn-secondary" type="submit" style="color: white;">Search Businesses</button>
-            </form>
-            <div>
-                <a href="{% url 'index' %}" style="color: white;"> What's Happening</a>
-            </div>
-            <div>
-                <a href="{% url 'post-create' %}" style="color: white;">Alert the neighbours about something</a>
-            </div>
             <div>
                 {% if request.user.is_authenticated %}
                 <div>
@@ -35,9 +25,14 @@
                 <div>
                     <a href="{% url 'logout' %}" style="color: white;">Logout</a>
                 </div>
+                <div>
+                    <a href="{% url 'index' %}" style="color: white;"> What's Happening</a>
+                </div>
+                <div>
+                    <a href="{% url 'post-create' %}" style="color: white;">Report something</a>
+                </div>
                 {% else %}
-                <a href="{% url 'login' %}" style="color: white;">Login</a>
-                <a href="{% url 'register' %}" style="color: white;">Register</a>
+                <a href="{% url 'register' %}" style="color: white; padding-left: 1000px;">Register</a>
                 {% endif %}
             </div>
         </div>

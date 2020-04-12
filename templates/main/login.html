@@ -1,18 +1,14 @@
 {% extends "main/base.html"%}
-{% load crispy_forms_tags %}
 {%block content%}
+{%load static%}
 
-<div class="content-section" style="background-color: white; color: black;  ">
+<div class="login">
+    <img src="" class="avtar">
+    <h2>login</h2>
     <form method="POST">
         {% csrf_token %}
-        <fieldset class="form-group" style="   font-family: 'Indie Flower', ">
-            <legend class="border-bottom- mb-4">Login Now
-            </legend>
-            {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-secondary" type="submit">Login</button>
-        </div>
+        {{ form.as_p}}
+        <input type="submit" value="login">
     </form>
     <div class="border-top pt-3">
         <small class="text-muted">

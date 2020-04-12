@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from worldwatch.forms import UserUpdateForm
+from worldwatch.forms import CommentForm
 # Create your views here.
 
 
@@ -23,17 +24,17 @@ def register(request):
     return render(request, "main/signup.html", context={'form': form})
 
 
-class PostListView(ListView):
+class PostListView(LoginRequiredMixin,ListView):
     model = Post
     template_name = "main/index.html"
     context_object_name = "posts"
     ordering =['-post_date']
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin,DetailView):
     model = Post
     template_name = "main/detail.html"
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
     template_name = "main/postform.html"
     fields = ['title', 'message', 'image']
@@ -42,7 +43,7 @@ class PostCreateView(CreateView):
         form.instance.masterpost = self.request.user
         return super().form_valid(form)
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(LoginRequiredMixin,UpdateView):
     model = Post
     template_name = "main/updateform.html"
     fields = ['image','title','message']
@@ -81,3 +82,18 @@ def profile(request):
     else:
         form = UserUpdateForm(instance=request.user.profile)
     return render(request, "main/profile.html", context={"form":form})
+
+def post_comments(request, postid):
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        print(postid)
+        if form.is_valid():
+            c_form=form.save(commit=False)
+            c_form.post = get_object_or_404(Post,id=postid)
+            c_form.user=request.user
+            print(c_form)
+            c_form.save()
+            return redirect('index')
+    else:
+        form = CommentForm()
+    return render(request, "main/commentform.html", context={"form":form, })

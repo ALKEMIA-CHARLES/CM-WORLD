@@ -9,6 +9,13 @@
             <img src="{{post.image.url}}" class="img-fluid" />
             <p>{{post.message}}</p>
             <p>{{post.post_date}}</p>
+            <p><a href="{% url 'post-comment' post.id %}">Comment on post</a></p>
+            {% for comment in post.comments_set.all %}
+            <p>{{comment.user.username}}</p>
+            <br>
+            <p>{{comment.comment}}</p>
+            <br />
+            {%endfor%}
         </div>
     </div>
     {% endfor %}
